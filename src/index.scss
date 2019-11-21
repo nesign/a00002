@@ -1,0 +1,11 @@
+/*
+  WARNING:
+  This file includes all the defaults, normally this file should NOT be modified.
+  Include the design styles in main.scss
+*/
+
+/* Enforce all external styles to be (auto) prefixed to `div.a00001` */
+/* This ensures the styles are applied only to the invite, not to the whole page */
+div.a00002 {
+  @import "./styles/main.scss";
+}

@@ -1,0 +1,100 @@
+<!-- Custom template goes here -->
+<div class="fade-in">
+  <div class="main-photo-bg" style="background-image: url('{{#if mainPhoto}}{{mainPhoto.url}}{{/if}}');">
+    <header class="masthead">
+      {{#if guest}}
+      <div class="d-flex justify-content-center">
+        <strong>{{guest.name}}</strong>,
+      </div>
+      {{/if}}
+      <div class="d-flex align-items-center">
+        <div class="mx-auto text-center jumbotron text-light">
+          <h1 class="pacifico mx-auto my-3 display-1">{{invite.title}}</h1>
+          <h2 class="text-white-50 mx-auto mt-2 mb-5">&nbsp;</h2>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <section id="message" class="about-section text-center text-white bg-primary">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2 class="text-white mb-4">{{invite.shortMsg}}</h2>
+          <p class="text-white-50">{{{longMsg}}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="details">
+    <div class="container">
+      <h2 class="text-center mt-0">Details</h2>
+      <hr class="divider my-4">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-map-marked-alt text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Venue</h3>
+            <p class="text-muted mb-0">{{invite.addrText}}</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-hourglass-start text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Starts</h3>
+            <p class="text-muted mb-0">{{invite.timeFromString}}</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-hourglass-end text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Ends</h3>
+            <p class="text-muted mb-0">{{endsat invite}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{#if sliderPhotos}}
+  <section id="portfolio" class="projects-section">
+    <div class="container-fluid p-0">
+      <div class="row no-gutters">
+        {{#each sliderPhotos}}
+        <div class="col-lg-4 col-sm-6">
+          <div class="portfolio-box">
+            <img class="img-fluid" src="{{url}}" alt="{{title}}">
+            <div class="portfolio-box-caption">
+              <div class="project-category text-white-50">
+                {{title}}
+              </div>
+              <div class="project-name">
+                {{description}}
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+  {{/if}}
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mt-0">RSVP</h2>
+          <hr class="divider my-4">
+          <p class="text-muted mb-5">Please respond soon, so we can plan the event better.</p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center mb-5 mb-lg-0">
+          <i class="fas fa-heart fa-3x mb-3 text-muted"></i>
+          <div>{{invite.hostName}}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

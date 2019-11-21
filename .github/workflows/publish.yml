@@ -1,0 +1,54 @@
+name: Node CI
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Checkout designer
+      run: |
+        (cd ../ && git clone https://github.com/nesign/designer.git)
+    - name: Dependencies
+      run: |
+        npm --prefix ../designer ci
+        npm i --if-present
+    - name: Build
+      run: |
+        npm --prefix ../designer run build -- "${PWD##*/}"
+        sed -i'' "s:<link href=\"default.css\" rel=\"stylesheet\">::g" ../designer/dist/assets/default.html
+        sed -i'' "s:<script type=\"text/javascript\" src=\"default.js\"></script>::g" ../designer/dist/assets/default.html
+    - name: Meta HTLM
+      run: |
+        cat <<html\> >> ../designer/dist/index.html
+          <!doctype html>
+          <html>
+            <head>
+              <title>Design a00002</title>
+            </head>
+            <body>
+              <p>Design a00002 version <strong>${{ github.sha }}</strong>. Preview <a href="https://i.rathnas.com/?iid=demo&preview=a00002">https://i.rathnas.com/?iid=demo&preview=a00002</a></p>
+            </body>
+          </html>
+    - name: Meta TXT
+      run: |
+        echo "${{ github.sha }}" >> ../designer/dist/version.txt
+    - name: Deploy
+      uses: crazy-max/ghaction-github-pages@v1.2.2
+      if: success()
+      with:
+        repo: nesign/a00002
+        build_dir: ../designer/dist
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+        CI: true
