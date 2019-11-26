@@ -1,6 +1,7 @@
 <!-- Custom template goes here -->
 <div class="fade-in">
-  <div class="main-photo-bg" style="background-image: url('{{#if mainPhoto}}{{mainPhoto.url}}{{/if}}');">
+  <div class="main-photo-bg" {{#unless isVideoInvite}}
+    style="background-image: url('{{#if mainPhoto}}{{mainPhoto.url}}{{/if}}');" {{/unless}}>
     <header class="masthead">
       {{#if guest}}
       <div class="d-flex justify-content-center">
@@ -16,6 +17,12 @@
     </header>
   </div>
 
+  {{#if isVideoInvite}}
+  <div class="p-md-5 d-flex justify-content-center align-items-center">
+    <iframe class="embed-responsive-item" width="560" height="315" src="{{mainPhoto.url}}"
+      allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  {{/if}}
   <section id="message" class="about-section text-center text-white bg-primary">
     <div class="container">
       <div class="row">
